@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signature Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🖋 Signature Analyzer</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Upload & Analyze</button>
+    </form>
+
+    {% if result %}
+        <div class="result-card">
+            <p><b>Prediction:</b> {{ result.prediction }}</p>
+            <p><b>Confidence:</b> {{ "%.2f" | format(result.confidence*100) }}%</p>
+            <p><b>Raw Output:</b> {{ "%.4f" | format(result.raw_output) }}</p>
+            <p><b>Threshold:</b> {{ result.threshold }}</p>
+
+            <div class="images">
+                <div>
+                    <h3>Uploaded Image</h3>
+                    <img src="{{ url_for('uploaded_file', filename=uploaded_image) }}">
+                </div>
+                {% if digitalized_image %}
+                <div>
+                    <h3>Digitalized Signature</h3>
+                    <img src="{{ url_for('digitalized_file', filename=digitalized_image) }}">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

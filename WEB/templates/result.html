@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Prediction Result</h1>
+    <p><strong>Prediction:</strong> {{ "Signature" if result.is_signature else "Not Signature" }}</p>
+    <p><strong>Confidence:</strong> {{ result.confidence }}%</p>
+    <p><strong>Raw Output:</strong> {{ result.raw_output }}</p>
+    <p><strong>Threshold:</strong> {{ result.threshold }}</p>
+
+    <h3>Uploaded Image:</h3>
+    <img src="{{ url_for('static', filename='uploads/' + original) }}" width="300">
+
+    {% if cleaned %}
+    <h3>Cleaned Signature:</h3>
+    <img src="{{ url_for('static', filename='output/' + cleaned) }}" width="300">
+    {% endif %}
+
+    <a href="{{ url_for('index') }}">Analyze Another</a>
+</div>
+</body>
+</html>
